@@ -1,0 +1,10 @@
+import { Search, ArrowUpRight, SlidersHorizontal } from 'lucide-react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { projects } from '../data/projects';
+
+export default function Projects() {
+  const [filter, setFilter] = useState('');
+  const filteredProjects = projects.filter(project => `${project.name} ${project.riskLevel} ${project.location}`.toLowerCase().includes(filter.toLowerCase()));
+  return <><section className="welcome-row"><div><p className="section-kicker">PORTFOLIO DIRECTORY</p><h2>All projects</h2><p className="section-subtitle">Search and inspect delivery risk across your active program.</p></div><button className="primary-button"><SlidersHorizontal size={16} /> Export view</button></section><div className="panel projects-directory"><div className="directory-toolbar"><div className="search-field"><Search size={17} /><input value={filter} onChange={event => setFilter(event.target.value)} placeholder="Search projects, regions or risk" /></div><span className="result-count">{filteredProjects.length} of {projects.length} projects</span></div><div className="table-scroll"><table><thead><tr><th>Project</th><th>Location</th><th>Risk level</th><th>Primary delay</th><th>Status</th><th /></tr></thead><tbody>{filteredProjects.map(project => <tr key={project.id}><td><Link className="table-project" to={`/projects/${project.id}`}><span className={`project-symbol ${project.riskLevel.toLowerCase()}`}>{project.name.slice(0, 1)}</span><span><strong>{project.name}</strong><small>{project.owner || 'Program delivery office'}</small></span></Link></td><td>{project.location}</td><td><span className={`risk-badge ${project.riskLevel.toLowerCase()}`}>{project.riskLevel}</span></td><td>{project.mainDelayReason}</td><td><span className={`status-text ${project.status === 'Delayed' ? 'delayed' : ''}`}><i />{project.status}</span></td><td><Link className="table-arrow" to={`/projects/${project.id}`} aria-label={`Open ${project.name}`}><ArrowUpRight size={16} /></Link></td></tr>)}</tbody></table></div>{filteredProjects.length === 0 && <div className="empty-state">No projects found.</div>}</div></>;
+}
