@@ -24,6 +24,7 @@ import {
 import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
 import AddLocationRiskModal from '../components/AddLocationRiskModal';
+import BottomSection from '../components/BottomSection';
 
 const API_URL = 'http://127.0.0.1:8000/predict';
 const riskColor = score => score > 0.7 ? '#dc6b45' : score > 0.4 ? '#d59b35' : '#55a77b';
@@ -279,6 +280,7 @@ export default function Dashboard() {
       <AddLocationRiskModal open={riskModalOpen} onClose={() => setRiskModalOpen(false)} compensationDelay={simCompDelay} disputeCount={simDisputes} approvalDelay={simApprovalDelay} onChange={(field, value) => { if (field === 'compensation_delay_days') setSimCompDelay(value); if (field === 'dispute_count') setSimDisputes(value); if (field === 'approval_delay_days') setSimApprovalDelay(value); setSimRisk(null); }} predictedRisk={simRisk || 0} delayReasons={explainDelayReasons(simExplanations)} recommendAction={simExplanations ? (explainDelayReasons(simExplanations)[0]?.sign > 0 ? `Prioritize ${explainDelayReasons(simExplanations)[0].name.toLowerCase()}` : 'Risk currently low - minimal interventions needed') : ''} />
 
       <section className="panel projects-panel"><div className="panel-heading"><div><span className="panel-kicker">PORTFOLIO</span><h3>Recent projects</h3></div><Link className="text-link" to="/projects">View all <ArrowUpRight size={14} /></Link></div><div className="project-list">{projects.map(project => <Link to={`/projects/${project.id}`} className="project-row" key={project.id}><div className={`project-symbol ${riskClass(project.riskLevel)}`}>{project.name.slice(0, 1)}</div><div className="project-name"><strong>{project.name}</strong><span>{project.location}</span></div><span className={`risk-badge ${riskClass(project.riskLevel)}`}>{project.riskLevel}</span><span className={`status-text ${project.status === 'Delayed' ? 'delayed' : ''}`}><i />{project.status}</span><span className="row-score">{Math.round(project.riskScore * 100)}%</span><ArrowUpRight className="row-arrow" size={16} /></Link>)}{userLocations.map((location, index) => <div className="project-row added-project" key={`added-project-${index}`}><div className="project-symbol added">+</div><div className="project-name"><strong>Added map location</strong><span>AI prediction result</span></div><span className={`risk-badge ${location.riskData.risk_score > 0.7 ? 'high' : location.riskData.risk_score > 0.4 ? 'medium' : 'low'}`}>{location.riskData.risk_score > 0.7 ? 'High' : location.riskData.risk_score > 0.4 ? 'Medium' : 'Low'}</span><span className="row-score">{Math.round(location.riskData.risk_score * 100)}%</span></div>)}</div></section>
+      <BottomSection />
     </>
   );
 }

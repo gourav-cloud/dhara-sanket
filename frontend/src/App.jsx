@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import ProjectDetail from './pages/ProjectDetail';
 import Projects from './pages/Projects';
 import Simulation from './pages/Simulation';
+import Header from './components/Header';
 
 const navItems = [
   { to: '/', label: 'Overview', icon: LayoutDashboard, end: true },
@@ -44,7 +45,7 @@ export default function App() {
       <div className="mobile-topbar"><button className="icon-button" onClick={() => setSidebarOpen(true)} aria-label="Open menu"><Menu size={20} /></button><strong>DHARA-SANKET</strong><Bell size={19} /></div>
       <main className="main-content">
         <header className="topbar">
-          <div><span className="eyebrow"><MapPinned size={14} /> Infrastructure intelligence</span><h1>Good morning <span className="wave">✦</span></h1></div>
+          <Header />
           <div className="topbar-actions"><span className="last-updated">Updated just now</span><button className="icon-button notification-button" aria-label="Notifications"><Bell size={19} /><i /></button><button className="filter-button"><SlidersHorizontal size={16} /> Filters</button></div>
         </header>
         <Routes>
