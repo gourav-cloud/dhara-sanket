@@ -222,7 +222,7 @@ export default function Dashboard() {
   return (
     <>
       <section className="welcome-row">
-        <div><p className="section-kicker">THURSDAY, SEPTEMBER 18, 2026</p><h2>Portfolio pulse</h2><p className="section-subtitle">A quick read on delivery health across your active infrastructure portfolio.</p></div>
+        <div><h2>Portfolio pulse</h2><p className="section-subtitle">A quick read on delivery health across your active infrastructure portfolio.</p></div>
         <Link className="primary-button" to="/projects"><CalendarClock size={16} /> View timeline</Link>
       </section>
       <section className="metric-grid">

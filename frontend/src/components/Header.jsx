@@ -1,8 +1,8 @@
 export default function Header() {
   return (
     <section className="overview-header">
-      <h2>Land Acquisition Insights</h2>
-      <p>Stay informed with up-to-date risk assessments and project progress in land acquisition.</p>
+      <h2>Acquisition Risk Overview</h2>
+      <p>A quick read on land acquisition status and risk across your active projects.</p>
     </section>
   );
 }
